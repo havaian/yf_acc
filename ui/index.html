@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Real-time Cotton Prices Candlestick Chart</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <ul class="charts-period-btns-wrapper">
+            <li id="daily" class="chart-period-btn">
+                <p>Last day</p>
+            </li>
+            <li id="weekly" class="chart-period-btn">
+                <p>Last week</p>
+            </li>
+            <li id="monthly" class="chart-period-btn">
+                <p>Last month</p>
+            </li>
+            <li id="three_months" class="chart-period-btn">
+                <p>Last 3 months</p>
+            </li>
+            <li id="half_year" class="chart-period-btn">
+                <p>Last 6 months</p>
+            </li>
+            <li id="yearly" class="chart-period-btn active">
+                <p>Last year</p>
+            </li>
+            <li id="three_years" class="chart-period-btn">
+                <p>Last 3 years</p>
+            </li>
+            <li id="five_years" class="chart-period-btn">
+                <p>Last 5 years</p>
+            </li>
+        </ul>
+        <div class="charts-wrapper">
+            <div class="chart-usd-container">
+                <div id="chart-usd">
+        
+                </div>
+            </div>
+            <div class="chart-usd-container">
+                <div id="chart-uzs">
+        
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="./main.js"></script>
+</html>
