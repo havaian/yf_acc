@@ -72,7 +72,7 @@ for (let x in periods) {
                 height: 350
             },
             title: {
-                text: 'Real-time Cotton Prices',
+                text: 'Real-time Cotton Prices (USD)',
                 align: 'left'
             },
             xaxis: {
@@ -93,7 +93,7 @@ for (let x in periods) {
                 height: 350
             },
             title: {
-                text: 'Real-time Cotton Prices',
+                text: 'Real-time Cotton Prices (UZS)',
                 align: 'left'
             },
             xaxis: {
