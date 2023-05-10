@@ -54,36 +54,32 @@ axios.get("http://localhost:5050/get-gen-info")
 .then(res => {
     const exchange_rates = check_exchange_rates();
     const data = res.data["data"];
-    console.log(data);
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth() + 1;
-    const day = currentDate.getDate();
+    const date = get_date();
     $(".top_info_wrapper").html(
         `
-            <h2>${data.price.shortName} (${data.price.symbol})</h2>
-            <p>${("0" + (month)).slice(-2) + "-" + ("0" + day).slice(-2) + "-" + year}</p>
+            <h2>Paxta Fyuchers Kontrakt | ${data.price.shortName} (${data.price.symbol})</h2>
+            <p>${("0" + (date.month)).slice(-2) + "-" + ("0" + date.day).slice(-2) + "-" + date.year}</p>
         `
     );
     let miw_text = ``;
     miw_text += 
         `
-            <h1>¢${data.price.regularMarketPrice} / lb.</h1>
+            <h1>${(data.price.regularMarketPrice * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)} so'm / kg.</h1>
         `
     data.price.regularMarketPrice - data.price.regularMarketChange > 0 ? 
-        miw_text += `<h2 class="change green">+${(data.price.regularMarketChange).toFixed(2)}</h2>` :
-        miw_text += `<h2 class="change red">-${(data.price.regularMarketChange).toFixed(2)}</h2>`;
+        miw_text += `<h2 class="change green">+${(data.price.regularMarketChange * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)}</h2>` :
+        miw_text += `<h2 class="change red">-${(data.price.regularMarketChange * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)}</h2>`;
     data.price.regularMarketPrice - data.price.regularMarketPreviousClose > 0 ? 
         miw_text += `<h2 class="change percent green">(+${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>` :
         miw_text += `<h2 class="change percent red">(-${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>`;
     let biw_text = ``;
     biw_text += 
         `
-            <h1>${(data.price.regularMarketPrice * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)} so'm / kg.</h1>
+            <h1>¢${data.price.regularMarketPrice} / funt (lb.)</h1>
         `
     data.price.regularMarketPrice - data.price.regularMarketChange > 0 ? 
-        biw_text += `<h2 class="change green">+${(data.price.regularMarketChange * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)}</h2>` :
-        biw_text += `<h2 class="change red">-${(data.price.regularMarketChange * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)}</h2>`;
+        biw_text += `<h2 class="change green">+${(data.price.regularMarketChange).toFixed(2)}</h2>` :
+        biw_text += `<h2 class="change red">-${(data.price.regularMarketChange).toFixed(2)}</h2>`;
     data.price.regularMarketPrice - data.price.regularMarketPreviousClose > 0 ? 
         biw_text += `<h2 class="change percent green">(+${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>` :
         biw_text += `<h2 class="change percent red">(-${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>`;
@@ -95,7 +91,13 @@ for (let x in periods) {
     axios.get(`http://localhost:5050/get-cotton-prices/${periods[x]}`)
     .then(async res => {
         const exchange_rates = check_exchange_rates();
-        data["usd"][periods[x]] = res.data["data"];
+        data["usd"][periods[x]] = res.data["data"].map(obj => {
+            // Create a new object with the same 'x' value
+            const new_obj = { x: obj.x };
+            // Multiply each value in 'y' array with exchange_rates.data["UZS"]
+            new_obj.y = obj.y.map(val => {return(val === null ? 0 : val).toFixed(2)});
+            return new_obj;
+        });
         data["uzs"][periods[x]] = res.data["data"].map(obj => {
             // Create a new object with the same 'x' value
             const new_obj = { x: obj.x };
@@ -113,7 +115,7 @@ for (let x in periods) {
                 height: 350
             },
             title: {
-                text: 'Real-time Cotton Prices (USD)',
+                text: 'Paxta Fyuchers Kontrakt narxlari (USD CT. / funt (lb.))',
                 align: 'left'
             },
             xaxis: {
@@ -134,7 +136,7 @@ for (let x in periods) {
                 height: 350
             },
             title: {
-                text: 'Real-time Cotton Prices (UZS)',
+                text: 'Paxta Fyuchers Kontrakt narxlari (UZS / kg.)',
                 align: 'left'
             },
             xaxis: {
