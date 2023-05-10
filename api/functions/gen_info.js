@@ -10,13 +10,10 @@ const get_info_json_path = "./data/summary.json";
 // Get ticker variable from env file
 const ticker = process.env.TICKER;
 
-// Setting up the current date in necessary format
-const date = require("./get_date.js")();
-
-const last_fetch = date.year + "-" + ("0" + (date.month)).slice(-2) + "-" + ("0" + date.day).slice(-2);
-
 exports.fetch = async () => {
     try {
+        const last_fetch = new Date();
+
         // Read the json file with data
         const data = fs.readFileSync(get_info_json_path, "utf8");
 
