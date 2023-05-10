@@ -55,8 +55,15 @@ axios.get("http://localhost:5050/get-gen-info")
     const exchange_rates = check_exchange_rates();
     const data = res.data["data"];
     console.log(data);
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
     $(".top_info_wrapper").html(
-        `<h2>${data.price.shortName} (${data.price.symbol})</h2>`
+        `
+            <h2>${data.price.shortName} (${data.price.symbol})</h2>
+            <p>${("0" + (month)).slice(-2) + "-" + ("0" + day).slice(-2) + "-" + year}</p>
+        `
     );
     let miw_text = ``;
     miw_text += 

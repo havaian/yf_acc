@@ -26,6 +26,10 @@ body {
 .general_info {
     position: relative;
 }
+.top_info_wrapper {
+    gap: 5%;
+    display: grid;
+}
 .middle_info_wrapper {
     display: flex;
     margin-top: 1%;
