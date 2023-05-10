@@ -67,8 +67,8 @@ axios.get("http://localhost:5050/get-gen-info")
         miw_text += `<h2 class="change green">+${(data.price.regularMarketChange).toFixed(2)}</h2>` :
         miw_text += `<h2 class="change red">-${(data.price.regularMarketChange).toFixed(2)}</h2>`;
     data.price.regularMarketPrice - data.price.regularMarketPreviousClose > 0 ? 
-        miw_text += `<h2 class="change percent green">(+${(data.price.regularMarketChangePercent * 100).toFixed(2)})</h3>` :
-        miw_text += `<h2 class="change percent red">(-${(data.price.regularMarketChangePercent * 100).toFixed(2)})</h3>`;
+        miw_text += `<h2 class="change percent green">(+${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>` :
+        miw_text += `<h2 class="change percent red">(-${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>`;
     let biw_text = ``;
     biw_text += 
         `
@@ -78,8 +78,8 @@ axios.get("http://localhost:5050/get-gen-info")
         biw_text += `<h2 class="change green">+${(data.price.regularMarketChange * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)}</h2>` :
         biw_text += `<h2 class="change red">-${(data.price.regularMarketChange * exchange_rates.data["UZS"] / 100 * 2.2046226218489).toFixed(2)}</h2>`;
     data.price.regularMarketPrice - data.price.regularMarketPreviousClose > 0 ? 
-        biw_text += `<h2 class="change percent green">(+${(data.price.regularMarketChangePercent * exchange_rates.data["UZS"] * 2.2046226218489).toFixed(2)})</h3>` :
-        biw_text += `<h2 class="change percent red">(-${(data.price.regularMarketChangePercent * exchange_rates.data["UZS"] * 2.2046226218489).toFixed(2)})</h3>`;
+        biw_text += `<h2 class="change percent green">(+${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>` :
+        biw_text += `<h2 class="change percent red">(-${(data.price.regularMarketChangePercent * 100).toFixed(2)}%)</h3>`;
     $(".middle_info_wrapper").html(miw_text);
     $(".bot_info_wrapper").html(biw_text);
 });
