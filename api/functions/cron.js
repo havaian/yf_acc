@@ -13,28 +13,22 @@ const cotton_json_dates = [
     "five_years",
 ];
 
-module.exports = () => {
+exports.periods = () => {
     try {
-        // Importing function for determining current date
-        const date = require("./get_date.js")();
-        const to = date.year + "-" + ("0" + (date.month)).slice(-2) + "-" + ("0" + (date.day)).slice(-2);
-
         for (let x in cotton_json_dates) {
-            // Constructing paths to json files
-            const path = `./data/${cotton_json_dates[x]}.json`;
-
-            // Read the data.json file
-            const data = fs.readFileSync(path, "utf8");
-
-            // Parse the JSON data
-            const json_data = JSON.parse(data);
-
-            // Check if the "to" field (the last fetch of the yahoo finance api) in the JSON data is equal to to"s date
-            if (json_data.to != to) {
-                // Execute the functions for getting cotton prices
-                require(`./yf_ctp/${cotton_json_dates[x]}.js`);
-            } 
+            // Execute the functions for getting cotton prices
+            require(`./yf_ctp/${cotton_json_dates[x]}.js`);
         }
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+exports.gen_info = () => {
+    try {
+        // Importing function for fetching general info
+        const gen_info = require("../functions/gen_info.js");
+        gen_info.fetch();
     } catch (err) {
         console.error(err);
     }

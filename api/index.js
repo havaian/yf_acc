@@ -27,8 +27,12 @@ app.use(require("./routes/index.js"));
 const cron_f = require("./functions/cron.js");
 
 // Schedule the cron job to run every hour of the day
-cron.schedule("* * * * *", () => {
-    cron_f();
+cron.schedule(process.env.PERIODS_CRON, () => {
+    cron_f.periods();
+});
+// Schedule the cron job to run every 5 minutes
+cron.schedule(process.env.GEN_INFO_CRON, () => {
+    cron_f.gen_info();
 });
 
 // set port, listen for requests

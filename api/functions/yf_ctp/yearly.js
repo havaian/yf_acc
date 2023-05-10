@@ -3,7 +3,7 @@ const yahooFinance = require("yahoo-finance");
 require("dotenv").config({ path: "../env/.env" });
 
 // Setting up the path to json file containing yearly prices for the cotton
-const cotton_json_path = "./data/yearly.json";
+const cotton_json_path = "./data/periods/yearly.json";
 
 // Setting up the ticker for the Yahoo Finance API
 const ticker = process.env.TICKER;
@@ -30,15 +30,16 @@ module.exports = yahooFinance.historical(
             const data = Object.entries(quotes).map(([key, value]) => ({
                 x: Date.parse(value.date),
                 y: [
-                    parseFloat(value.open / 100 * 2.2046226218489).toFixed(2), 
-                    parseFloat(value.high / 100 * 2.2046226218489).toFixed(2), 
-                    parseFloat(value.low / 100 * 2.2046226218489).toFixed(2), 
-                    parseFloat(value.close / 100 * 2.2046226218489).toFixed(2)
+                    value.open, 
+                    value.high, 
+                    value.low, 
+                    value.close
                 ],
             }));
             const cotton_data = {
                 from: from,
                 to: to,
+                last_fetch: new Date(),
                 data: data,
             };
             // Write the data to json file containing yearly prices for the cotton
